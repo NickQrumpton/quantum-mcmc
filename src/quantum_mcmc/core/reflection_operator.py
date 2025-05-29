@@ -17,8 +17,9 @@ References:
     Wocjan, P., & Abeyesinghe, A. (2008). Speedup via quantum sampling.
     Physical Review A, 78(4), 042336.
 
-Author: [Your Name]
-Date: 2025-01-23
+Author: Nicholas Zhao  
+Affiliation: Imperial College London  
+Contact: nz422@ic.ac.uk
 """
 
 from typing import Optional, Dict, List, Tuple, Union, Callable
@@ -30,7 +31,13 @@ from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
 from qiskit import transpile
 from qiskit.circuit.library import QFT
 from qiskit.quantum_info import Statevector, Operator
-from qiskit_aer import AerSimulator
+# Optional import for AerSimulator
+try:
+    from qiskit_aer import AerSimulator
+    HAS_AER = True
+except ImportError:
+    AerSimulator = None
+    HAS_AER = False
 from qiskit.visualization import plot_state_city
 
 # Plotting imports
@@ -46,9 +53,9 @@ def approximate_reflection_operator(
 ) -> QuantumCircuit:
     """Construct approximate reflection operator about stationary state.
     
-    Implements the reflection operator R_À that approximately reflects about
-    the stationary state À of a Markov chain. The operator acts as:
-        R_À H 2|ÀéèÀ| - I
+    Implements the reflection operator R_ï¿½ that approximately reflects about
+    the stationary state ï¿½ of a Markov chain. The operator acts as:
+        R_ï¿½ H 2|ï¿½ï¿½ï¿½ï¿½| - I
     
     This is achieved by:
     1. Using QPE to identify eigenstates of the walk operator
@@ -94,7 +101,7 @@ def approximate_reflection_operator(
     system = QuantumRegister(num_system, name='system')
     
     # Initialize circuit
-    qc = QuantumCircuit(ancilla, system, name='R_À')
+    qc = QuantumCircuit(ancilla, system, name='R_ï¿½')
     
     # Step 1: Apply QPE to identify eigenspaces
     qpe_circuit = _build_qpe_for_reflection(walk_operator, num_ancilla)
@@ -106,7 +113,7 @@ def approximate_reflection_operator(
     
     # Step 3: Apply inverse QPE
     if not inverse:
-        # Normal reflection: QPE ’ flip ’ QPE 
+        # Normal reflection: QPE ï¿½ flip ï¿½ QPE 
         inverse_qpe = qpe_circuit.inverse()
         qc.append(inverse_qpe, ancilla[:] + system[:])
     else:
@@ -220,7 +227,7 @@ def _create_phase_oracle(num_qubits: int, threshold: int) -> QuantumCircuit:
     """Create oracle that flips phase of states outside threshold.
     
     The oracle applies a phase flip to all computational basis states
-    |ké where k > threshold or k > 2^n - threshold (wraparound).
+    |kï¿½ where k > threshold or k > 2^n - threshold (wraparound).
     
     Args:
         num_qubits: Number of qubits
@@ -399,6 +406,9 @@ def _run_statevector_simulation(circuit: QuantumCircuit) -> Dict[str, any]:
 
 def _run_shot_simulation(circuit: QuantumCircuit, shots: int) -> Dict[str, any]:
     """Run shot-based simulation."""
+    if not HAS_AER:
+        raise ImportError("qiskit-aer is required for shot-based simulation. "
+                         "Install with: pip install qiskit-aer")
     simulator = AerSimulator()
     transpiled = transpile(circuit, simulator)
     
@@ -491,7 +501,7 @@ def analyze_reflection_quality(
     eigenvals = np.linalg.eigvals(R_op.data)
     phases = np.angle(eigenvals) / np.pi  # Normalize to [-1, 1]
     
-    # Check how many eigenvalues are close to ±1
+    # Check how many eigenvalues are close to ï¿½1
     n_plus = np.sum(np.abs(phases) < 0.1)
     n_minus = np.sum(np.abs(np.abs(phases) - 1) < 0.1)
     
@@ -561,7 +571,7 @@ def analyze_reflection_quality(
         analysis['target_preservation_fidelity'] = preservation_fidelity
     
     # Estimate operator norm error
-    # Ideal reflection has eigenvalues ±1
+    # Ideal reflection has eigenvalues ï¿½1
     ideal_eigenvals = np.ones_like(eigenvals)
     ideal_eigenvals[n_plus:] = -1
     
@@ -733,7 +743,7 @@ def plot_reflection_analysis(
         ax.axvline(x=0, color='red', linestyle='--', label='Target phase')
         ax.axvline(x=1, color='red', linestyle='--')
         ax.axvline(x=-1, color='red', linestyle='--')
-        ax.set_xlabel('Eigenvalue Phase / À')
+        ax.set_xlabel('Eigenvalue Phase / ï¿½')
         ax.set_ylabel('Count')
         ax.set_title('Eigenvalue Phase Distribution')
         ax.legend()

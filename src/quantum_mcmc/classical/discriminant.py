@@ -15,8 +15,9 @@ References:
     Szegedy, M. (2004). Quantum speed-up of Markov chain based algorithms.
     FOCS 2004: 32-41.
 
-Author: [Your Name]
-Date: 2025-01-23
+Author: Nicholas Zhao  
+Affiliation: Imperial College London  
+Contact: nz422@ic.ac.uk
 """
 
 from typing import Optional, Tuple
@@ -29,20 +30,20 @@ def discriminant_matrix(P: np.ndarray, pi: Optional[np.ndarray] = None) -> np.nd
     """Compute the discriminant matrix D(P) for a reversible Markov chain.
     
     For a reversible Markov chain with transition matrix P and stationary
-    distribution À, the discriminant matrix D is defined as:
+    distribution ï¿½, the discriminant matrix D is defined as:
         
-        D[x,y] = (P[x,y] * P[y,x] * À[y] / À[x])
+        D[x,y] = (P[x,y] * P[y,x] * ï¿½[y] / ï¿½[x])
     
     This matrix arises naturally in Szegedy's quantum walk construction and
     encodes the transition amplitudes. The singular values of D determine
     the spectral properties of the quantum walk operator.
     
     Args:
-        P: n×n reversible transition matrix (row-stochastic)
+        P: nï¿½n reversible transition matrix (row-stochastic)
         pi: Stationary distribution. If None, it will be computed.
     
     Returns:
-        D: n×n discriminant matrix with entries in [0,1]
+        D: nï¿½n discriminant matrix with entries in [0,1]
     
     Raises:
         ValueError: If P is not stochastic, not reversible, or if the
@@ -90,7 +91,7 @@ def discriminant_matrix(P: np.ndarray, pi: Optional[np.ndarray] = None) -> np.nd
     
     # Check reversibility
     if not is_reversible(P, pi):
-        raise ValueError("Markov chain must be reversible with respect to À")
+        raise ValueError("Markov chain must be reversible with respect to ï¿½")
     
     # Construct discriminant matrix
     D = np.zeros((n, n), dtype=np.float64)
@@ -120,7 +121,7 @@ def singular_values(D: np.ndarray) -> np.ndarray:
     - The singular values are related to the eigenvalues of the quantum walk
     
     Args:
-        D: n×n discriminant matrix
+        D: nï¿½n discriminant matrix
     
     Returns:
         sigma: Array of singular values sorted in descending order
@@ -158,7 +159,7 @@ def spectral_gap(D: np.ndarray) -> float:
     faster mixing and better quantum advantage.
     
     Args:
-        D: n×n discriminant matrix
+        D: nï¿½n discriminant matrix
     
     Returns:
         gap: Spectral gap (value between 0 and 1)
@@ -206,7 +207,7 @@ def phase_gap(D: np.ndarray) -> float:
         phase_gap H 2 * arcsin(spectral_gap(D) / 2)
     
     Args:
-        D: n×n discriminant matrix
+        D: nï¿½n discriminant matrix
     
     Returns:
         delta: Phase gap in radians
@@ -238,15 +239,15 @@ def mixing_time_bound(D: np.ndarray, epsilon: float = 0.01) -> float:
     """Compute an upper bound on the quantum mixing time.
     
     For a quantum walk with discriminant matrix D, the mixing time to
-    reach µ-distance from the stationary distribution is bounded by:
+    reach ï¿½-distance from the stationary distribution is bounded by:
         
-        T_quantum = O(1/phase_gap * log(n/µ))
+        T_quantum = O(1/phase_gap * log(n/ï¿½))
     
     This provides a quadratic speedup over classical mixing when the
     spectral gap is constant.
     
     Args:
-        D: n×n discriminant matrix
+        D: nï¿½n discriminant matrix
         epsilon: Target distance from stationary distribution
     
     Returns:
@@ -271,6 +272,42 @@ def mixing_time_bound(D: np.ndarray, epsilon: float = 0.01) -> float:
     return t_bound
 
 
+def classical_spectral_gap(P: np.ndarray) -> float:
+    """Compute the classical spectral gap of a transition matrix.
+    
+    The classical spectral gap is defined as:
+        gap = 1 - |Î»â‚‚|
+    where Î»â‚‚ is the second largest eigenvalue by magnitude.
+    
+    Args:
+        P: nÃ—n stochastic transition matrix
+    
+    Returns:
+        gap: Classical spectral gap
+    
+    Example:
+        >>> P = build_two_state_chain(0.3)
+        >>> gap = classical_spectral_gap(P)
+        >>> print(f"Classical gap: {gap:.4f}")
+    """
+    # Get eigenvalues of P
+    eigenvals = np.linalg.eigvals(P)
+    
+    # Sort by magnitude in descending order
+    eigenvals_sorted = sorted(eigenvals, key=lambda x: abs(x), reverse=True)
+    
+    # The largest eigenvalue should be 1 (stationary)
+    # The gap is 1 - |Î»â‚‚|
+    if len(eigenvals_sorted) < 2:
+        return 1.0
+    
+    second_largest = abs(eigenvals_sorted[1])
+    gap = 1.0 - second_largest
+    
+    # Ensure non-negative
+    return max(0.0, gap)
+
+
 def validate_discriminant(D: np.ndarray, P: np.ndarray, 
                          pi: Optional[np.ndarray] = None,
                          atol: float = 1e-10) -> bool:
@@ -279,7 +316,7 @@ def validate_discriminant(D: np.ndarray, P: np.ndarray,
     Checks that:
     1. D is symmetric
     2. D has entries in [0,1]
-    3. D satisfies the discriminant relation with P and À
+    3. D satisfies the discriminant relation with P and ï¿½
     4. D has the correct spectral properties
     
     Args:
@@ -340,7 +377,7 @@ def effective_dimension(D: np.ndarray, threshold: float = 0.01) -> int:
     threshold, indicating the number of "active" modes in the quantum walk.
     
     Args:
-        D: n×n discriminant matrix
+        D: nï¿½n discriminant matrix
         threshold: Singular value threshold
     
     Returns:
@@ -359,12 +396,12 @@ def effective_dimension(D: np.ndarray, threshold: float = 0.01) -> int:
 def condition_number(D: np.ndarray) -> float:
     """Compute the condition number of the discriminant matrix.
     
-    The condition number º(D) = Ã_max / Ã_min indicates the numerical
+    The condition number ï¿½(D) = ï¿½_max / ï¿½_min indicates the numerical
     stability of quantum walk simulations. Large condition numbers may
     lead to numerical issues in quantum circuit implementations.
     
     Args:
-        D: n×n discriminant matrix
+        D: nï¿½n discriminant matrix
     
     Returns:
         kappa: Condition number (e 1)
@@ -399,7 +436,7 @@ def spectral_analysis(D: np.ndarray) -> dict:
     the quantum walk behavior and potential speedup.
     
     Args:
-        D: n×n discriminant matrix
+        D: nï¿½n discriminant matrix
     
     Returns:
         analysis: Dictionary containing:

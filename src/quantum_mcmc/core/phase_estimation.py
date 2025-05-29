@@ -17,8 +17,9 @@ References:
     Kitaev, A. Y. (1995). Quantum measurements and the Abelian stabilizer
     problem. arXiv preprint quant-ph/9511026.
 
-Author: [Your Name]
-Date: 2025-01-23
+Author: Nicholas Zhao  
+Affiliation: Imperial College London  
+Contact: nz422@ic.ac.uk
 """
 
 from typing import Callable, Optional, Dict, List, Tuple, Union
@@ -31,7 +32,13 @@ from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
 from qiskit import transpile
 from qiskit.circuit import ControlledGate
 from qiskit.providers import Backend
-from qiskit_aer import AerSimulator
+# Optional import for AerSimulator
+try:
+    from qiskit_aer import AerSimulator
+    HAS_AER = True
+except ImportError:
+    AerSimulator = None
+    HAS_AER = False
 from qiskit.quantum_info import Statevector
 from qiskit.visualization import plot_histogram
 
@@ -51,8 +58,8 @@ def quantum_phase_estimation(
     """Construct and execute a quantum phase estimation circuit.
     
     Implements the standard QPE algorithm to estimate eigenphases of a unitary
-    operator U. Given an eigenstate |Èé with eigenvalue e^(2ÀiÆ), QPE estimates
-    Æ with n-bit precision using n ancilla qubits.
+    operator U. Given an eigenstate |ï¿½ï¿½ with eigenvalue e^(2ï¿½iï¿½), QPE estimates
+    ï¿½ with n-bit precision using n ancilla qubits.
     
     The algorithm works by:
     1. Preparing ancillas in uniform superposition
@@ -168,7 +175,7 @@ def _build_qpe_circuit(
         qc.append(initial_state, target[:])
     elif state_prep is not None:
         state_prep(qc, target)
-    # else: leave in |0...0é state
+    # else: leave in |0...0ï¿½ state
     
     # Initialize ancillas in uniform superposition
     for i in range(num_ancilla):
@@ -276,7 +283,10 @@ def _run_qiskit_simulation(
     Returns:
         Dictionary with counts and raw data
     """
-    # Use Aer simulator
+    # Use Aer simulator if available
+    if not HAS_AER:
+        raise ImportError("qiskit-aer is required for shot-based simulation. "
+                         "Install with: pip install qiskit-aer")
     simulator = AerSimulator()
     
     # Transpile for simulator
@@ -396,7 +406,7 @@ def analyze_qpe_results(results: Dict[str, any]) -> Dict[str, any]:
         >>> analysis = analyze_qpe_results(results)
         >>> for phase, err in zip(analysis['dominant_phases'], 
         ...                       analysis['uncertainties']):
-        ...     print(f"Phase: {phase:.4f} ± {err:.4f}")
+        ...     print(f"Phase: {phase:.4f} ï¿½ {err:.4f}")
     """
     phases = results['phases']
     probs = results['probabilities']
@@ -618,7 +628,7 @@ def plot_qpe_histogram(
             ancilla_bits = bitstring[-num_ancilla:]
             value = int(ancilla_bits, 2)
             phase = value / (2 ** num_ancilla)
-            labels.append(f'{bitstring}\n(Æ={phase:.3f})')
+            labels.append(f'{bitstring}\n(ï¿½={phase:.3f})')
         else:
             labels.append(bitstring)
         

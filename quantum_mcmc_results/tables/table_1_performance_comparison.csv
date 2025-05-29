@@ -1,0 +1,6 @@
+Problem,chain_size,classical_gap,quantum_gap,classical_mixing,quantum_mixing,speedup,reversible
+Two-State Symmetric,2,0.6,0.6094,5,9,0.5556,True
+Two-State Asymmetric,2,0.6,0.6435,5,9,0.5556,True
+Small Random Walk,4,0.25,0.2507,15,24,0.625,True
+Lattice Chain,3,0.5,0.5368,6,11,0.5455,True
+Metropolis Chain,5,0.2416,0.2569,16,25,0.64,True

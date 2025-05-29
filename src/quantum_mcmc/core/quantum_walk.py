@@ -15,8 +15,9 @@ References:
     Montanaro, A. (2015). Quantum speedup of Monte Carlo methods.
     Proceedings of the Royal Society A, 471(2181), 20150301.
 
-Author: [Your Name]
-Date: 2025-01-23
+Author: Nicholas Zhao  
+Affiliation: Imperial College London  
+Contact: nz422@ic.ac.uk
 """
 
 from typing import Optional, Tuple, Union
@@ -40,14 +41,14 @@ def prepare_walk_operator(P: np.ndarray,
     The walk operator provides quadratic speedup for mixing and sampling.
     
     The quantum walk operator is defined as:
-        W = S * (2  - I)
+        W = S * (2ï¿½ - I)
     where:
         - S is the swap operator exchanging edge endpoints
-        -   is the projection onto the span of transition vectors
+        - ï¿½ is the projection onto the span of transition vectors
         - I is the identity operator
     
     Args:
-        P: n×n reversible transition matrix (row-stochastic)
+        P: nï¿½n reversible transition matrix (row-stochastic)
         pi: Stationary distribution. If None, it will be computed.
         backend: Output format - "qiskit" for QuantumCircuit, "matrix" for numpy array
     
@@ -60,9 +61,9 @@ def prepare_walk_operator(P: np.ndarray,
                    backend is not supported
     
     Note:
-        - The operator acts on a 2-register quantum state |ié|jé representing
-          directed edges (i’j) in the Markov chain graph
-        - Requires 2log‚(n)	 qubits total for an n-state chain
+        - The operator acts on a 2-register quantum state |iï¿½|jï¿½ representing
+          directed edges (iï¿½j) in the Markov chain graph
+        - Requires 2logï¿½(n)	 qubits total for an n-state chain
         - The eigenvalues of W determine mixing time and spectral gap
     
     Example:
@@ -109,28 +110,28 @@ def prepare_walk_operator(P: np.ndarray,
 def _build_walk_matrix(D: np.ndarray, P: np.ndarray, pi: np.ndarray) -> np.ndarray:
     """Construct the matrix representation of the quantum walk operator.
     
-    The walk operator acts on the space of directed edges |ié|jé and
+    The walk operator acts on the space of directed edges |iï¿½|jï¿½ and
     implements the transformation:
-        W = S * (2  - I)
+        W = S * (2ï¿½ - I)
     
     Args:
-        D: n×n discriminant matrix
-        P: n×n transition matrix
+        D: nï¿½n discriminant matrix
+        P: nï¿½n transition matrix
         pi: Stationary distribution
     
     Returns:
-        W: n²×n² unitary matrix representing the quantum walk operator
+        W: nï¿½ï¿½nï¿½ unitary matrix representing the quantum walk operator
     """
     n = D.shape[0]
     dim = n * n  # Dimension of edge space
     
-    # Build projection operator   onto span of transition vectors
+    # Build projection operator ï¿½ onto span of transition vectors
     Pi_op = _build_projection_operator(D, P, pi)
     
-    # Build swap operator S that exchanges |ié|jé ” |jé|ié
+    # Build swap operator S that exchanges |iï¿½|jï¿½ ï¿½ |jï¿½|iï¿½
     S = _build_swap_operator(n)
     
-    # Construct walk operator: W = S * (2  - I)
+    # Construct walk operator: W = S * (2ï¿½ - I)
     reflection = 2 * Pi_op - np.eye(dim)
     W = S @ reflection
     
@@ -140,8 +141,8 @@ def _build_walk_matrix(D: np.ndarray, P: np.ndarray, pi: np.ndarray) -> np.ndarr
 def _build_projection_operator(D: np.ndarray, P: np.ndarray, pi: np.ndarray) -> np.ndarray:
     """Build the projection operator onto transition vectors.
     
-    The projection operator   projects onto the span of vectors:
-        |Èbé = £| (P[i,j]) |ié|jé
+    The projection operator ï¿½ projects onto the span of vectors:
+        |ï¿½bï¿½ = ï¿½| (P[i,j]) |iï¿½|jï¿½
     
     This is the key component that encodes the Markov chain structure
     into the quantum walk.
@@ -152,7 +153,7 @@ def _build_projection_operator(D: np.ndarray, P: np.ndarray, pi: np.ndarray) -> 
         pi: Stationary distribution
     
     Returns:
-        Pi_op: n²×n² projection matrix
+        Pi_op: nï¿½ï¿½nï¿½ projection matrix
     """
     n = D.shape[0]
     dim = n * n
@@ -161,19 +162,19 @@ def _build_projection_operator(D: np.ndarray, P: np.ndarray, pi: np.ndarray) -> 
     Pi_op = np.zeros((dim, dim), dtype=complex)
     
     # Build transition amplitude matrix
-    # A[i,j] = sqrt(P[i,j]) for the amplitude from |ié to |ié|jé
+    # A[i,j] = sqrt(P[i,j]) for the amplitude from |iï¿½ to |iï¿½|jï¿½
     A = np.sqrt(P)
     
-    # Construct projection as sum of outer products |ÈbéèÈb|
+    # Construct projection as sum of outer products |ï¿½bï¿½ï¿½ï¿½b|
     for i in range(n):
-        # Build transition vector |Èbé for state i
+        # Build transition vector |ï¿½bï¿½ for state i
         psi_i = np.zeros(dim, dtype=complex)
         for j in range(n):
-            # |Èbé = £| (P[i,j]) |i,jé
-            idx = i * n + j  # Index for |ié|jé in computational basis
+            # |ï¿½bï¿½ = ï¿½| (P[i,j]) |i,jï¿½
+            idx = i * n + j  # Index for |iï¿½|jï¿½ in computational basis
             psi_i[idx] = A[i, j]
         
-        # Add outer product |ÈbéèÈb| to projection
+        # Add outer product |ï¿½bï¿½ï¿½ï¿½b| to projection
         Pi_op += np.outer(psi_i, psi_i.conj())
     
     return Pi_op
@@ -183,20 +184,20 @@ def _build_swap_operator(n: int) -> np.ndarray:
     """Build the swap operator for two n-dimensional registers.
     
     The swap operator S exchanges the two registers:
-        S|ié|jé = |jé|ié
+        S|iï¿½|jï¿½ = |jï¿½|iï¿½
     
     Args:
         n: Dimension of each register
     
     Returns:
-        S: n²×n² permutation matrix
+        S: nï¿½ï¿½nï¿½ permutation matrix
     """
     dim = n * n
     S = np.zeros((dim, dim))
     
     for i in range(n):
         for j in range(n):
-            # Map |ié|jé to |jé|ié
+            # Map |iï¿½|jï¿½ to |jï¿½|iï¿½
             idx_in = i * n + j
             idx_out = j * n + i
             S[idx_out, idx_in] = 1
@@ -278,8 +279,8 @@ def walk_eigenvalues(P: np.ndarray, pi: Optional[np.ndarray] = None) -> np.ndarr
     The eigenvalues of W(P) determine the mixing properties and spectral gap
     of the quantum walk. They are related to the singular values of the
     discriminant matrix through:
-        » = ±(1 - 4Ã²(1 - Ã²))
-    where Ã are the singular values.
+        ï¿½ = ï¿½(1 - 4Ã²(1 - Ã²))
+    where ï¿½ are the singular values.
     
     Args:
         P: Transition matrix
@@ -299,25 +300,32 @@ def walk_eigenvalues(P: np.ndarray, pi: Optional[np.ndarray] = None) -> np.ndarr
     sigmas = singular_values(D)
     
     # Compute walk eigenvalues from singular values
-    # For each singular value Ã, we get two eigenvalues
+    # For each singular value Ïƒ, we get two eigenvalues e^{Â±iÎ¸}
     eigenvals = []
     
     for sigma in sigmas:
-        # Skip near-zero singular values
+        # Skip near-zero singular values (correspond to eigenvalue 1)
         if sigma < 1e-14:
+            eigenvals.extend([1.0, 1.0])
             continue
             
-        # Compute discriminant for quadratic formula
-        discriminant = 1 - 4 * sigma**2 * (1 - sigma**2)
+        # For singular value Ïƒ = 1, eigenvalue is -1
+        if abs(sigma - 1) < 1e-14:
+            eigenvals.extend([-1.0, -1.0])
+            continue
+            
+        # Compute cos(Î¸) = âˆš(1 - 4ÏƒÂ²(1 - ÏƒÂ²))
+        cos_theta_sq = 1 - 4 * sigma**2 * (1 - sigma**2)
         
-        if discriminant >= 0:
-            # Real eigenvalues
-            sqrt_disc = np.sqrt(discriminant)
-            eigenvals.extend([sqrt_disc, -sqrt_disc])
-        else:
-            # Complex eigenvalues
-            sqrt_disc = np.sqrt(-discriminant)
-            eigenvals.extend([1j * sqrt_disc, -1j * sqrt_disc])
+        # Ensure cos_theta_sq is in valid range [0, 1]
+        cos_theta_sq = np.clip(cos_theta_sq, 0, 1)
+        cos_theta = np.sqrt(cos_theta_sq)
+        
+        # Compute angle Î¸
+        theta = np.arccos(cos_theta)
+        
+        # Eigenvalues are e^{Â±iÎ¸}
+        eigenvals.extend([np.exp(1j * theta), np.exp(-1j * theta)])
     
     return np.array(eigenvals)
 
@@ -391,7 +399,7 @@ def prepare_initial_state(n: int,
     
     Example:
         >>> qc_init = prepare_initial_state(4, start_vertex=0)
-        >>> # Prepares state |0é|È€é where |È€é = £| P€| |jé
+        >>> # Prepares state |0ï¿½|È€ï¿½ where |È€ï¿½ = ï¿½| Pï¿½| |jï¿½
     """
     n_qubits = int(np.ceil(np.log2(n)))
     
@@ -400,7 +408,7 @@ def prepare_initial_state(n: int,
     qc = QuantumCircuit(qr1, qr2)
     
     if start_vertex is not None:
-        # Prepare |start_vertexé in first register
+        # Prepare |start_vertexï¿½ in first register
         if start_vertex > 0:
             binary = format(start_vertex, f'0{n_qubits}b')
             for i, bit in enumerate(binary):
@@ -486,7 +494,7 @@ def quantum_mixing_time(P: np.ndarray,
     """Estimate quantum mixing time for given accuracy.
     
     Returns the number of quantum walk steps needed to mix to within
-    µ total variation distance of the stationary distribution.
+    ï¿½ total variation distance of the stationary distribution.
     
     Args:
         P: Transition matrix

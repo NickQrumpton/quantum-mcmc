@@ -2,10 +2,19 @@
 Visualization routines for quantum MCMC results.
 
 This module provides plotting functions for visualizing quantum phase estimation results,
-spectral properties, and convergence diagnostics.
+spectral properties, and convergence diagnostics. The implementation focuses on
+publication-quality figures for academic research and comprehensive analysis
+of quantum MCMC performance.
 
-Author: Nicholas Zhao
-Date: January 2025
+Key functionalities:
+- Phase estimation histograms and spectral plots
+- Convergence diagnostics and mixing time visualization
+- Markov chain network graphs and state transition visualization
+- Multi-panel comparative analysis figures
+
+Author: Nicholas Zhao  
+Affiliation: Imperial College London  
+Contact: nz422@ic.ac.uk
 """
 
 import numpy as np
@@ -63,7 +72,7 @@ def plot_phase_histogram(
     Notes
     -----
     The phases are expected to be in the interval [0, 1), representing
-    eigenphases ¸ where the eigenvalues are e^(2Ài¸).
+    eigenphases ï¿½ where the eigenvalues are e^(2ï¿½iï¿½).
     """
     if ax is None:
         fig, ax = plt.subplots(1, 1, figsize=(8, 6))
@@ -99,7 +108,7 @@ def plot_phase_histogram(
                       alpha=0.8, label='Theoretical' if phase == theoretical_phases[0] else "")
     
     # Formatting
-    ax.set_xlabel('Phase ¸', fontsize=12)
+    ax.set_xlabel('Phase ï¿½', fontsize=12)
     ax.set_ylabel('Probability', fontsize=12)
     ax.set_title('Quantum Phase Estimation Results', fontsize=14, fontweight='bold')
     ax.set_xlim(-0.05, 1.05)
@@ -201,7 +210,7 @@ def plot_singular_values(
         # Add annotation for gap
         ax.annotate('', xy=(0.5, singular_values[1]), xytext=(0.5, singular_values[0]),
                    arrowprops=dict(arrowstyle='<->', color='red', lw=2))
-        ax.text(0.5, (singular_values[0] + singular_values[1])/2, f'” = {gap:.4f}',
+        ax.text(0.5, (singular_values[0] + singular_values[1])/2, f'ï¿½ = {gap:.4f}',
                ha='center', va='center', bbox=dict(boxstyle='round,pad=0.3', 
                                                   facecolor='white', alpha=0.8))
     
@@ -272,7 +281,7 @@ def plot_total_variation(
     Notes
     -----
     The total variation distance is defined as:
-    TV(p, q) = 0.5 * £_i |p_i - q_i|
+    TV(p, q) = 0.5 * ï¿½_i |p_i - q_i|
     
     A mixing time indicator is automatically added when the distance falls
     below common thresholds (0.25, 0.1, 0.01).
@@ -309,7 +318,7 @@ def plot_total_variation(
         if len(mixing_idx) > 0:
             mixing_time = iterations[mixing_idx[0]]
             ax.plot(mixing_time, thresh, 'o', color=color, markersize=10)
-            ax.text(mixing_time, thresh, f'  Ä_{thresh} = {mixing_time}', 
+            ax.text(mixing_time, thresh, f'  ï¿½_{thresh} = {mixing_time}', 
                    fontsize=9, va='center', color=color)
     
     # Formatting
@@ -334,7 +343,7 @@ def plot_total_variation(
                 slope, intercept, r_value, _, _ = stats.linregress(valid_iters[:len(log_tv)//2], 
                                                                    log_tv[:len(log_tv)//2])
                 rate = -slope
-                textstr = f'Convergence rate: {rate:.4f}\nR² = {r_value**2:.3f}'
+                textstr = f'Convergence rate: {rate:.4f}\nRï¿½ = {r_value**2:.3f}'
                 props = dict(boxstyle='round', facecolor='lightyellow', alpha=0.7)
                 ax.text(0.65, 0.95, textstr, transform=ax.transAxes, fontsize=10,
                        verticalalignment='top', bbox=props)
@@ -408,7 +417,7 @@ def plot_eigenvalue_spectrum(
         if np.any(unit_mask):
             ax.scatter(real_parts[unit_mask], imag_parts[unit_mask],
                       s=200, marker='*', color='red', edgecolors='darkred',
-                      linewidth=2, label=f'Near unit (|»-1| < {unit_threshold})')
+                      linewidth=2, label=f'Near unit (|ï¿½-1| < {unit_threshold})')
     
     # Draw unit circle
     theta = np.linspace(0, 2*np.pi, 100)
@@ -428,7 +437,7 @@ def plot_eigenvalue_spectrum(
     # Add colorbar for phases
     cbar = plt.colorbar(scatter, ax=ax, label='Phase (radians)')
     cbar.set_ticks([-np.pi, -np.pi/2, 0, np.pi/2, np.pi])
-    cbar.set_ticklabels(['-À', '-À/2', '0', 'À/2', 'À'])
+    cbar.set_ticklabels(['-ï¿½', '-ï¿½/2', '0', 'ï¿½/2', 'ï¿½'])
     
     if highlight_unit and np.any(unit_mask):
         ax.legend(loc='best', fontsize=10)

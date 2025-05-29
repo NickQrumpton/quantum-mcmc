@@ -17,8 +17,9 @@ References:
     improved regression techniques via faster Hamiltonian simulation.
     arXiv:1804.01973.
 
-Author: [Your Name]
-Date: 2025-01-23
+Author: Nicholas Zhao  
+Affiliation: Imperial College London  
+Contact: nz422@ic.ac.uk
 """
 
 from typing import Dict, List, Optional, Tuple, Union, Any
@@ -87,7 +88,7 @@ def total_variation_distance(dist1: np.ndarray, dist2: np.ndarray) -> float:
     """Compute total variation distance between probability distributions.
     
     The total variation distance is defined as:
-        TV(P, Q) = (1/2) £b |P(i) - Q(i)|
+        TV(P, Q) = (1/2) ï¿½b |P(i) - Q(i)|
     
     This metric ranges from 0 (identical distributions) to 1 (disjoint support).
     It's the standard measure for MCMC convergence and mixing.
@@ -138,7 +139,7 @@ def total_variation_distance(dist1: np.ndarray, dist2: np.ndarray) -> float:
 def compute_overlap(state1: np.ndarray, state2: np.ndarray) -> float:
     """Compute quantum state overlap (inner product squared).
     
-    For quantum states |Èé and |Æé, computes |èÈ|Æé|².
+    For quantum states |ï¿½ï¿½ and |ï¿½ï¿½, computes |ï¿½ï¿½|ï¿½ï¿½|ï¿½.
     This measures the probability of finding one state in the other.
     
     Args:
@@ -146,14 +147,14 @@ def compute_overlap(state1: np.ndarray, state2: np.ndarray) -> float:
         state2: Second quantum state vector
     
     Returns:
-        Overlap |èÈ|Æé|² in [0, 1]
+        Overlap |ï¿½ï¿½|ï¿½ï¿½|ï¿½ in [0, 1]
     
     Raises:
         ValueError: If states have different dimensions
     
     Example:
-        >>> psi = np.array([1, 0]) / np.sqrt(1)  # |0é
-        >>> phi = np.array([1, 1]) / np.sqrt(2)  # |+é
+        >>> psi = np.array([1, 0]) / np.sqrt(1)  # |0ï¿½
+        >>> phi = np.array([1, 1]) / np.sqrt(2)  # |+ï¿½
         >>> overlap = compute_overlap(psi, phi)
         >>> print(f"Overlap: {overlap}")
         Overlap: 0.5
@@ -187,10 +188,10 @@ def compute_overlap(state1: np.ndarray, state2: np.ndarray) -> float:
 def fidelity(rho1: np.ndarray, rho2: np.ndarray) -> float:
     """Compute quantum state fidelity between density matrices.
     
-    For density matrices Á and Ã, the fidelity is:
-        F(Á, Ã) = Tr((Á Ã Á))²
+    For density matrices ï¿½ and ï¿½, the fidelity is:
+        F(ï¿½, ï¿½) = Tr((ï¿½ ï¿½ ï¿½))ï¿½
     
-    For pure states, this reduces to |èÈ|Æé|².
+    For pure states, this reduces to |ï¿½ï¿½|ï¿½ï¿½|ï¿½.
     
     Args:
         rho1: First density matrix
@@ -200,8 +201,8 @@ def fidelity(rho1: np.ndarray, rho2: np.ndarray) -> float:
         Fidelity in [0, 1]
     
     Example:
-        >>> rho = np.array([[1, 0], [0, 0]])  # |0éè0|
-        >>> sigma = np.array([[0.5, 0.5], [0.5, 0.5]])  # |+éè+|
+        >>> rho = np.array([[1, 0], [0, 0]])  # |0ï¿½ï¿½0|
+        >>> sigma = np.array([[0.5, 0.5], [0.5, 0.5]])  # |+ï¿½ï¿½+|
         >>> f = fidelity(rho, sigma)
         >>> print(f"Fidelity: {f}")
         Fidelity: 0.5
@@ -214,7 +215,7 @@ def trace_distance(rho1: np.ndarray, rho2: np.ndarray) -> float:
     """Compute trace distance between density matrices.
     
     The trace distance is:
-        D(Á, Ã) = (1/2) Tr|Á - Ã|
+        D(ï¿½, ï¿½) = (1/2) Tr|ï¿½ - ï¿½|
     
     where |A| = (A A) is the matrix absolute value.
     
@@ -227,7 +228,7 @@ def trace_distance(rho1: np.ndarray, rho2: np.ndarray) -> float:
     
     Example:
         >>> rho = np.eye(2) / 2  # Maximally mixed state
-        >>> sigma = np.array([[1, 0], [0, 0]])  # Pure |0é
+        >>> sigma = np.array([[1, 0], [0, 0]])  # Pure |0ï¿½
         >>> d = trace_distance(rho, sigma)
         >>> print(f"Trace distance: {d}")
         Trace distance: 0.5
@@ -252,7 +253,7 @@ def mixing_time(
     """Estimate mixing time of a Markov chain.
     
     Finds the number of steps needed for the chain to reach within
-    µ total variation distance of the stationary distribution.
+    Îµ total variation distance of the stationary distribution.
     
     Args:
         transition_matrix: Row-stochastic transition matrix
@@ -261,7 +262,7 @@ def mixing_time(
         max_steps: Maximum steps to simulate
     
     Returns:
-        Mixing time (number of steps)
+        Mixing time (number of steps), or 0 if already mixed
     
     Example:
         >>> P = np.array([[0.9, 0.1], [0.2, 0.8]])
@@ -276,24 +277,52 @@ def mixing_time(
     stationary = np.real(eigenvecs[:, stationary_idx])
     stationary = stationary / np.sum(stationary)
     
-    # Initialize distribution
+    # If no initial distribution specified, compute worst-case
     if initial_dist is None:
-        current_dist = np.ones(n) / n
+        # Try all basis states to find worst-case
+        max_mixing_time = 0
+        
+        for i in range(n):
+            # Start from basis state |i>
+            current_dist = np.zeros(n)
+            current_dist[i] = 1.0
+            
+            # Simulate until mixed
+            for t in range(max_steps):
+                tv_dist = total_variation_distance(current_dist, stationary)
+                
+                if tv_dist <= epsilon:
+                    max_mixing_time = max(max_mixing_time, t)
+                    break
+                
+                # Update distribution
+                current_dist = current_dist @ transition_matrix
+            else:
+                # Did not mix within max_steps
+                warnings.warn(f"State {i} did not mix within {max_steps} steps")
+                return max_steps
+                
+        return max_mixing_time
+    
     else:
+        # Use provided initial distribution
         current_dist = initial_dist.copy()
-    
-    # Simulate until mixed
-    for t in range(max_steps):
+        
+        # Check if already mixed
         tv_dist = total_variation_distance(current_dist, stationary)
-        
         if tv_dist <= epsilon:
-            return t
+            return 0
         
-        # Update distribution
-        current_dist = current_dist @ transition_matrix
-    
-    warnings.warn(f"Did not mix within {max_steps} steps")
-    return max_steps
+        # Simulate until mixed
+        for t in range(1, max_steps):
+            current_dist = current_dist @ transition_matrix
+            tv_dist = total_variation_distance(current_dist, stationary)
+            
+            if tv_dist <= epsilon:
+                return t
+        
+        warnings.warn(f"Did not mix within {max_steps} steps")
+        return max_steps
 
 
 def effective_sample_size(
@@ -426,7 +455,14 @@ def quantum_process_fidelity(
     # Full process tomography would be more complex
     
     from qiskit import transpile
-    from qiskit_aer import AerSimulator
+    
+    # Optional import for AerSimulator
+    try:
+        from qiskit_aer import AerSimulator
+        HAS_AER = True
+    except ImportError:
+        raise ImportError("qiskit-aer is required for quantum process fidelity. "
+                         "Install with: pip install qiskit-aer")
     
     # Prepare maximally entangled state
     prep_circuit = QuantumCircuit(2 * num_qubits)
@@ -653,6 +689,25 @@ def quantum_speedup_estimate(
         ... )
         >>> print(f"Quantum speedup: {speedup['mixing_time_speedup']:.1f}x")
     """
+    # Handle edge cases
+    if classical_mixing_time == 0 and quantum_mixing_time == 0:
+        # Both already mixed
+        return {
+            'mixing_time_speedup': 1.0,
+            'wall_time_speedup': 1.0,
+            'query_speedup': 1.0,
+            'break_even_point': phase_estimation_overhead * quantum_cost_per_step / classical_cost_per_step,
+            'quantum_advantage': False
+        }
+    
+    if quantum_mixing_time == 0:
+        # Quantum already mixed but classical isn't
+        quantum_mixing_time = 1  # Minimum 1 step
+    
+    if classical_mixing_time == 0:
+        # Classical already mixed but quantum isn't
+        classical_mixing_time = 1  # Minimum 1 step
+    
     # Basic mixing time speedup
     mixing_speedup = classical_mixing_time / quantum_mixing_time
     
@@ -664,7 +719,9 @@ def quantum_speedup_estimate(
     wall_time_speedup = classical_total_cost / quantum_total_cost
     
     # Query complexity speedup (oracle calls)
-    query_speedup = np.sqrt(mixing_speedup)  # Typical for quantum walks
+    # For quantum walks, typically get quadratic speedup in gap
+    # But mixing time depends on 1/gap, so sqrt speedup overall
+    query_speedup = np.sqrt(mixing_speedup) if mixing_speedup > 0 else 0.0
     
     # Break-even point
     break_even = phase_estimation_overhead * quantum_cost_per_step / classical_cost_per_step
@@ -710,7 +767,7 @@ def plot_convergence_diagnostics(
     z_scores = diagnostics['geweke_scores']
     chains = range(1, len(z_scores) + 1)
     ax.bar(chains, z_scores, color='purple', alpha=0.7)
-    ax.axhline(y=2, color='red', linestyle='--', label='±2Ã')
+    ax.axhline(y=2, color='red', linestyle='--', label='ï¿½2ï¿½')
     ax.axhline(y=-2, color='red', linestyle='--')
     ax.set_xlabel('Chain')
     ax.set_ylabel('Z-score')
@@ -779,7 +836,7 @@ def entropy_analysis(
     else:
         shannon = -np.sum(p_nonzero * np.log(p_nonzero)) / np.log(base)
     
-    # Min-entropy (Rényi entropy of order )
+    # Min-entropy (Rï¿½nyi entropy of order )
     min_entropy = -np.log(np.max(p)) / np.log(base)
     
     # Max entropy (uniform distribution)
