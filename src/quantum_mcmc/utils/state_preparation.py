@@ -50,7 +50,7 @@ except ImportError:
     UniformSuperposition = None
     HAS_UNIFORM_SUPERPOSITION = False
 from qiskit.quantum_info import Statevector, state_fidelity
-from qiskit.extensions import UnitaryGate
+from qiskit.circuit.library import UnitaryGate
 from qiskit.circuit import Parameter, ParameterVector
 
 

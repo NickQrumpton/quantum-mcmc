@@ -257,7 +257,7 @@ def _create_phase_oracle(num_qubits: int, threshold: int) -> QuantumCircuit:
         
         # Create diagonal gate
         from qiskit.quantum_info import Operator
-        from qiskit.extensions import UnitaryGate
+        from qiskit.circuit.library import UnitaryGate
         
         # Convert diagonal to full unitary
         unitary = np.diag(diagonal)

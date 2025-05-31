@@ -1,0 +1,5 @@
+k,empirical_norm,theoretical_bound,satisfies_bound
+1,1.4142135623730945,1.0,False
+2,1.4142135623730945,0.5,False
+3,1.4142135623730945,0.25,False
+4,1.4142135623730943,0.125,False

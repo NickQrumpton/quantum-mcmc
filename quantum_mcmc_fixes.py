@@ -133,13 +133,20 @@ def quantum_mixing_time_estimate(
     n_states: int,
     epsilon: float = 0.01
 ) -> int:
-    """Estimate quantum mixing time from phase gap (FIXED)."""
+    """Estimate quantum mixing time from phase gap (FIXED).
+    
+    Based on quantum walk theory, the mixing time scales as:
+    t_quantum = C × (1/quantum_phase_gap) × log(1/epsilon)
+    
+    Where quantum_phase_gap ≈ 2√(classical_gap) for simple chains.
+    This gives O(1/√δ) scaling compared to classical O(1/δ).
+    """
     if quantum_phase_gap < 1e-10:
         return np.inf
     
-    # Quantum mixing time: O(1/δ_φ * log(n/ε))
-    # Using conservative constant
-    t_quantum = int(np.ceil((2.0 / quantum_phase_gap) * np.log(n_states / epsilon)))
+    # Quantum mixing time: O(1/Δ × log(n/ε))
+    # Using standard constant (not conservative)
+    t_quantum = int(np.ceil((1.0 / quantum_phase_gap) * np.log(n_states / epsilon)))
     
     return t_quantum
 

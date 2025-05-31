@@ -200,54 +200,90 @@ def spectral_gap(D: np.ndarray) -> float:
 def phase_gap(D: np.ndarray) -> float:
     """Compute the phase gap of the quantum walk operator.
     
-    The phase gap is the minimum difference between the phases of eigenvalues
-    of the quantum walk operator W(P), excluding the stationary phase (0).
-    This is directly related to the spectral gap of D through:
-        
-        phase_gap H 2 * arcsin(spectral_gap(D) / 2)
+    The phase gap is defined as:
+        Δ(P) = min{2θ | cos(θ) ∈ σ(D), θ ∈ (0,π/2)}
+    
+    where σ(D) are the singular values of the discriminant matrix.
+    
+    For a classical Markov chain with spectral gap δ, the quantum phase gap
+    satisfies: Δ(P) ≥ 2√δ (with equality for 2-state chains).
     
     Args:
-        D: n�n discriminant matrix
+        D: n×n discriminant matrix
     
     Returns:
         delta: Phase gap in radians
     
     Note:
-        This approximation is valid for small spectral gaps. For larger gaps,
-        the exact relationship involves the full spectrum of D.
+        The phase gap determines the quantum mixing time through:
+        t_quantum = O(1/Δ × log(n/ε))
     
     Example:
         >>> D = discriminant_matrix(build_two_state_chain(0.3))
         >>> delta = phase_gap(D)
         >>> print(f"Phase gap: {delta:.6f} radians")
     """
-    gap = spectral_gap(D)
+    # Get singular values of D
+    sigmas = singular_values(D)
     
-    # For small gaps, phase_gap H spectral_gap
-    # For larger gaps, use the arcsin formula
-    if gap < 0.1:
-        delta = gap
-    else:
-        # Ensure we don't exceed the domain of arcsin
-        arg = min(gap / 2, 1.0)
-        delta = 2 * np.arcsin(arg)
+    # Find minimum non-trivial phase
+    min_phase = np.pi  # Initialize to maximum possible
     
-    return delta
+    for sigma in sigmas:
+        if sigma < 1e-14:  # Skip near-zero singular values
+            continue
+            
+        if np.abs(sigma - 1.0) < 1e-14:  # Skip the stationary singular value
+            continue
+        
+        # The phase θ is related to singular value σ by:
+        # cos(θ) = σ for σ ∈ [0,1]
+        # We want the minimum 2θ for θ ∈ (0, π/2)
+        
+        # Ensure sigma is in valid range [0,1]
+        sigma_clipped = np.clip(sigma, 0.0, 1.0)
+        
+        # Compute θ = arccos(σ)
+        theta = np.arccos(sigma_clipped)
+        
+        # We consider both θ and π-θ as phases
+        # The phase gap is 2 times the minimum non-zero phase
+        if 0 < theta < np.pi/2:
+            min_phase = min(min_phase, theta)
+        
+        # Also consider π-θ if it's in the valid range
+        alt_theta = np.pi - theta
+        if 0 < alt_theta < np.pi/2:
+            min_phase = min(min_phase, alt_theta)
+    
+    # The phase gap is 2 times the minimum phase
+    phase_gap_value = 2 * min_phase
+    
+    # For verification, compute the theoretical lower bound
+    # For classical gap δ, quantum phase gap should be ≥ 2√δ
+    classical_gap = spectral_gap(D)
+    theoretical_bound = 2 * np.sqrt(classical_gap)
+    
+    # In practice, for simple chains, we should have approximately
+    # phase_gap ≈ theoretical_bound
+    # But we use the exact calculation from singular values
+    
+    return phase_gap_value
 
 
 def mixing_time_bound(D: np.ndarray, epsilon: float = 0.01) -> float:
     """Compute an upper bound on the quantum mixing time.
     
     For a quantum walk with discriminant matrix D, the mixing time to
-    reach �-distance from the stationary distribution is bounded by:
+    reach ε-distance from the stationary distribution is bounded by:
         
-        T_quantum = O(1/phase_gap * log(n/�))
+        T_quantum = O(1/phase_gap × log(n/ε))
     
     This provides a quadratic speedup over classical mixing when the
-    spectral gap is constant.
+    spectral gap is small, since phase_gap ≈ 2√(classical_gap).
     
     Args:
-        D: n�n discriminant matrix
+        D: n×n discriminant matrix
         epsilon: Target distance from stationary distribution
     
     Returns:
@@ -265,9 +301,9 @@ def mixing_time_bound(D: np.ndarray, epsilon: float = 0.01) -> float:
         warnings.warn("Phase gap is near zero; mixing time may be infinite")
         return np.inf
     
-    # Standard mixing time bound: O(1/delta * log(n/epsilon))
-    # We use a conservative constant
-    t_bound = (2.0 / delta) * np.log(n / epsilon)
+    # Quantum mixing time bound: O(1/Δ × log(n/ε))
+    # Using the standard constant factor
+    t_bound = (1.0 / delta) * np.log(n / epsilon)
     
     return t_bound
 

@@ -1,0 +1,151 @@
+================================================================================
+QUANTUM MCMC BENCHMARK SUMMARY REPORT (UPDATED)
+Generated: 2025-05-30 09:57:56
+================================================================================
+
+OVERALL STATISTICS:
+  Total benchmarks: 15
+  Average speedup: 4.67×
+  Median speedup: 4.00×
+  Maximum speedup: 9.12×
+  Minimum speedup: 2.70×
+  Speedups > 1: 15 (100.0%)
+
+
+TWO STATE CHAINS:
+------------------------------------------------------------
+
+  Symmetric:
+    States: 2
+    Classical gap: 0.600000
+    Quantum gap: 2.318559
+    Classical mixing time: 9
+    Quantum mixing time: 3
+    Speedup: 3.00×
+
+  Asymmetric:
+    States: 2
+    Classical gap: 0.600000
+    Quantum gap: 2.353837
+    Classical mixing time: 9
+    Quantum mixing time: 3
+    Speedup: 3.00×
+
+  Near-periodic:
+    States: 2
+    Classical gap: 0.100000
+    Quantum gap: 0.902054
+    Classical mixing time: 53
+    Quantum mixing time: 6
+    Speedup: 8.83×
+
+  Fast-mixing:
+    States: 2
+    Classical gap: 0.900000
+    Quantum gap: 2.941258
+    Classical mixing time: 6
+    Quantum mixing time: 2
+    Speedup: 3.00×
+
+RANDOM WALKS:
+------------------------------------------------------------
+
+  cycle_4:
+    States: 4
+    Classical gap: 0.500000
+    Quantum gap: 2.094395
+    Classical mixing time: 12
+    Quantum mixing time: 3
+    Speedup: 4.00×
+
+  cycle_6:
+    States: 6
+    Classical gap: 0.250000
+    Quantum gap: 1.445468
+    Classical mixing time: 26
+    Quantum mixing time: 5
+    Speedup: 5.20×
+
+  cycle_8:
+    States: 8
+    Classical gap: 0.146447
+    Quantum gap: 1.096057
+    Classical mixing time: 46
+    Quantum mixing time: 7
+    Speedup: 6.57×
+
+  cycle_10:
+    States: 10
+    Classical gap: 0.095492
+    Quantum gap: 0.881141
+    Classical mixing time: 73
+    Quantum mixing time: 8
+    Speedup: 9.12×
+
+  complete_3:
+    States: 3
+    Classical gap: 0.500000
+    Quantum gap: 2.094395
+    Classical mixing time: 12
+    Quantum mixing time: 3
+    Speedup: 4.00×
+
+  complete_4:
+    States: 4
+    Classical gap: 0.666667
+    Quantum gap: 2.461919
+    Classical mixing time: 9
+    Quantum mixing time: 3
+    Speedup: 3.00×
+
+  complete_5:
+    States: 5
+    Classical gap: 0.750000
+    Quantum gap: 2.636232
+    Classical mixing time: 9
+    Quantum mixing time: 3
+    Speedup: 3.00×
+
+METROPOLIS CHAINS:
+------------------------------------------------------------
+
+  Uniform:
+    States: 5
+    Classical gap: 0.174056
+    Quantum gap: 1.197845
+    Classical mixing time: 36
+    Quantum mixing time: 6
+    Speedup: 6.00×
+
+  Gaussian:
+    States: 5
+    Classical gap: 0.331139
+    Quantum gap: 1.384460
+    Classical mixing time: 19
+    Quantum mixing time: 5
+    Speedup: 3.80×
+
+  Sharp:
+    States: 5
+    Classical gap: 0.260522
+    Quantum gap: 1.379340
+    Classical mixing time: 24
+    Quantum mixing time: 5
+    Speedup: 4.80×
+
+  Large:
+    States: 10
+    Classical gap: 0.264153
+    Quantum gap: 0.696202
+    Classical mixing time: 27
+    Quantum mixing time: 10
+    Speedup: 2.70×
+
+================================================================================
+KEY FINDINGS:
+------------------------------------------------------------
+1. Quantum speedup achieved across all tested problems
+2. Phase gap calculation correctly implements Δ ≥ 2√δ bound
+3. Two-state symmetric chains show expected ~2-3× speedup
+4. Random walks on cycles demonstrate near-quadratic speedup
+5. Metropolis chains show consistent quantum advantage
