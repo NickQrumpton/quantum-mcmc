@@ -1,0 +1,11 @@
+# Theorem 6 QPE-Based Reflection Operator Resource Benchmark
+# IMHK Lattice Gaussian Sampling
+# Generated theoretical results based on Theorem 6
+#
+k_repetitions,error_norm,num_ancilla,total_qubits,circuit_depth,controlled_W_calls,gate_count
+1,0.5,5,9,70,31,350
+2,0.25,6,10,120,126,600
+3,0.125,7,11,170,381,850
+4,0.0625,8,12,220,1020,1100
+5,0.03125,9,13,270,2555,1350
+6,0.015625,10,14,320,6138,1600
