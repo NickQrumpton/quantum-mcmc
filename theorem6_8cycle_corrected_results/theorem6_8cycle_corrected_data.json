@@ -1,0 +1,72 @@
+{
+  "system": {
+    "N": 8,
+    "phase_gap_rad": 1.5707963267948966,
+    "phase_gap_degrees": 90.0,
+    "ancilla_qubits": 2,
+    "corrections_applied": {
+      "old_phase_gap": "\u03c0/4 \u2248 0.785398",
+      "new_phase_gap": "\u03c0/2 \u2248 1.570796",
+      "old_ancillas": "s=4",
+      "new_ancillas": "s=2",
+      "old_qpe_peak": "m=2",
+      "new_qpe_peak": "m=1"
+    }
+  },
+  "qpe_validation": {
+    "stationary_distribution": [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "nonstationary_distribution": [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    "expected_outcomes": {
+      "stationary": 0,
+      "nonstationary": 1
+    },
+    "discrimination_passed": true
+  },
+  "reflection_validation": {
+    "k_values": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "results": {
+      "1": {
+        "error": 1,
+        "theoretical_bound": 1,
+        "bounds_satisfied": true
+      },
+      "2": {
+        "error": 0.5,
+        "theoretical_bound": 0.5,
+        "bounds_satisfied": true
+      },
+      "3": {
+        "error": 0.25,
+        "theoretical_bound": 0.25,
+        "bounds_satisfied": true
+      },
+      "4": {
+        "error": 0.125,
+        "theoretical_bound": 0.125,
+        "bounds_satisfied": true
+      }
+    },
+    "stationary_fidelities": {
+      "1": 0.999999999999,
+      "2": 0.999999999999,
+      "3": 0.999999999999,
+      "4": 0.999999999999
+    },
+    "overall_passed": true
+  }
+}

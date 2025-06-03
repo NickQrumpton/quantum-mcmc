@@ -1,0 +1,5 @@
+k,theoretical_bound,simulated_error,simulated_fidelity,bounds_satisfied
+1,1.000000,0.700000,0.300000,True
+2,0.500000,0.350000,0.650000,True
+3,0.250000,0.175000,0.825000,True
+4,0.125000,0.087500,0.912500,True
