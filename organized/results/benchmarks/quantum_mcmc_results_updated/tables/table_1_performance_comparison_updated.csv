@@ -1,0 +1,16 @@
+Problem,States,Classical Gap,Quantum Gap,Classical Time,Quantum Time,Speedup
+Two - Symmetric,2,0.6000,2.3186,9,3,3.00×
+Two - Asymmetric,2,0.6000,2.3538,9,3,3.00×
+Two - Near-periodic,2,0.1000,0.9021,53,6,8.83×
+Two - Fast-mixing,2,0.9000,2.9413,6,2,3.00×
+Random - cycle_4,4,0.5000,2.0944,12,3,4.00×
+Random - cycle_6,6,0.2500,1.4455,26,5,5.20×
+Random - cycle_8,8,0.1464,1.0961,46,7,6.57×
+Random - cycle_10,10,0.0955,0.8811,73,8,9.12×
+Random - complete_3,3,0.5000,2.0944,12,3,4.00×
+Random - complete_4,4,0.6667,2.4619,9,3,3.00×
+Random - complete_5,5,0.7500,2.6362,9,3,3.00×
+Metropolis - Uniform,5,0.1741,1.1978,36,6,6.00×
+Metropolis - Gaussian,5,0.3311,1.3845,19,5,3.80×
+Metropolis - Sharp,5,0.2605,1.3793,24,5,4.80×
+Metropolis - Large,10,0.2642,0.6962,27,10,2.70×

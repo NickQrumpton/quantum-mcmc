@@ -1,0 +1,12 @@
+Problem,Classical δ,Theoretical Δ,Actual Δ,Ratio Δ/(2√δ)
+Two - Symmetric,0.6000,≥ 1.5492,2.3186,1.497
+Two - Asymmetric,0.6000,≥ 1.5492,2.3538,1.519
+Two - Near-periodic,0.1000,≥ 0.6325,0.9021,1.426
+Two - Fast-mixing,0.9000,≥ 1.8974,2.9413,1.550
+Random - cycle_4,0.5000,≥ 1.4142,2.0944,1.481
+Random - cycle_6,0.2500,≥ 1.0000,1.4455,1.445
+Random - cycle_8,0.1464,≥ 0.7654,1.0961,1.432
+Random - cycle_10,0.0955,≥ 0.6180,0.8811,1.426
+Random - complete_3,0.5000,≥ 1.4142,2.0944,1.481
+Random - complete_4,0.6667,≥ 1.6330,2.4619,1.508
+Random - complete_5,0.7500,≥ 1.7321,2.6362,1.522
