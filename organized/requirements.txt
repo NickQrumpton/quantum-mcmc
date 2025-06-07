@@ -1,0 +1,83 @@
+# Core dependencies for quantum-mcmc
+# Research-grade version pinning for reproducibility
+# Generated: 2025-01-27
+# Python >= 3.9 required
+
+# Numerical computing
+numpy>=1.21.0,<2.0.0
+scipy>=1.7.0,<2.0.0
+
+# Data manipulation
+pandas>=1.3.0,<3.0.0
+
+# Visualization
+matplotlib>=3.4.0,<4.0.0
+seaborn>=0.11.0,<1.0.0
+
+# Quantum computing
+qiskit>=0.45.0,<1.0.0
+qiskit-aer>=0.13.0,<1.0.0
+qiskit-ibm-runtime>=0.15.0,<1.0.0
+
+# Optional but recommended
+networkx>=2.8.0,<4.0.0  # For graph visualization
+
+# --- Development dependencies ---
+# Install with: pip install -r requirements-dev.txt
+
+# Testing
+pytest>=7.0.0,<8.0.0
+pytest-cov>=4.0.0,<5.0.0
+pytest-xdist>=3.0.0,<4.0.0
+
+# Code quality
+black>=22.0.0,<24.0.0
+flake8>=5.0.0,<7.0.0
+mypy>=1.0.0,<2.0.0
+isort>=5.10.0,<6.0.0
+pre-commit>=3.0.0,<4.0.0
+
+# Documentation
+sphinx>=5.0.0,<8.0.0
+sphinx-rtd-theme>=1.0.0,<2.0.0
+nbsphinx>=0.8.0,<1.0.0
+
+# --- Notebook dependencies ---
+# Install with: pip install -r requirements-notebooks.txt
+
+jupyter>=1.0.0,<2.0.0
+jupyterlab>=3.0.0,<5.0.0
+notebook>=6.4.0,<8.0.0
+ipywidgets>=8.0.0,<9.0.0
+tqdm>=4.65.0,<5.0.0
+
+# --- Additional visualization ---
+# Install with: pip install -r requirements-viz.txt
+
+plotly>=5.0.0,<6.0.0
+graphviz>=0.20.0,<1.0.0
+
+# --- Performance and profiling ---
+# Optional for performance analysis
+
+# line_profiler>=4.0.0,<5.0.0
+# memory_profiler>=0.60.0,<1.0.0
+# snakeviz>=2.1.0,<3.0.0
+
+# --- Platform-specific notes ---
+# macOS users may need: brew install libomp (for certain scipy operations)
+# Windows users may need: Microsoft C++ Build Tools
+# Linux users: ensure libopenblas-dev or similar is installed
+
+# --- Reproducibility notes ---
+# For exact reproducibility, use pip freeze after installation:
+#   pip freeze > requirements-frozen.txt
+# Then share requirements-frozen.txt with collaborators
+
+# --- GPU support (optional) ---
+# For GPU acceleration with Qiskit:
+# qiskit-aer-gpu>=0.13.0,<1.0.0  # Requires CUDA
+
+# --- Citation ---
+# If you use this package in research, please cite:
+# [Citation information will be added upon publication]

@@ -1,0 +1,23 @@
+{
+  "backend_name": "aer_simulator",
+  "timestamp": "2025-06-07T16:23:15.764224",
+  "experiment_parameters": {
+    "ancilla_bits": 4,
+    "shots": 4096,
+    "repeats": 3,
+    "phase_gap": 0.7853981633974483,
+    "transition_matrix": [
+      [
+        0.7,
+        0.3
+      ],
+      [
+        0.4,
+        0.6
+      ]
+    ]
+  },
+  "backend_properties": {
+    "note": "Properties not available"
+  }
+}
