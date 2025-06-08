@@ -142,6 +142,50 @@ print(f"Ready for quantum MCMC with error bound ε ≤ {2**(1-k):.3f}")
 - **Examples**: `examples/` - Demonstration scripts and tutorials
 - **Tests**: `tests/` - Unit tests and integration validation
 - **Documentation**: `documentation/` - Theoretical background and API reference
+- **Results**: `results/` - **ALL EXPERIMENTAL RESULTS AND OUTPUT FILES**
+
+## 🗂️ **CRITICAL: Results Storage Policy**
+
+**MANDATORY REQUIREMENT**: All experimental results, output files, figures, and data must be saved in the `results/` directory structure. 
+
+### **Results Directory Organization**:
+```
+results/
+├── hardware/              # Hardware experiment results
+│   ├── qpe_experiments/   # QPE experiment outputs
+│   ├── benchmarks/        # Performance benchmarking
+│   └── validation/        # Theoretical validation results
+├── figures/               # All publication-quality figures
+├── data/                  # Raw experimental data (JSON, CSV)
+├── reports/               # Generated reports and summaries
+└── archives/              # Historical results for reference
+```
+
+### **Implementation Requirements**:
+- **NEVER save results in script directories** (e.g., `scripts/hardware/`)
+- **ALWAYS use `results/` as the base directory** for all output
+- **Create timestamped subdirectories** for experiment runs
+- **Include metadata files** with experimental parameters
+- **Separate raw data from processed figures** in appropriate subdirectories
+
+### **Example Code Pattern**:
+```python
+# ✅ CORRECT - Save to results directory
+output_dir = Path("results/hardware/qpe_experiments") / f"experiment_{timestamp}"
+output_dir.mkdir(parents=True, exist_ok=True)
+
+# Save data
+with open(output_dir / "data.json", 'w') as f:
+    json.dump(results, f)
+
+# Save figures  
+fig.savefig(output_dir / "figures" / "qpe_results.png")
+
+# ❌ INCORRECT - Don't save in script directories
+# output_dir = Path(__file__).parent / f"results_{timestamp}"  # WRONG
+```
+
+This ensures clean project organization and prevents cluttering of source code directories with experimental outputs.
 
 ## ⚠️ **Critical Implementation Notes**
 
