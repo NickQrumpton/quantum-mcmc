@@ -86,8 +86,16 @@ def discriminant_matrix(P: np.ndarray, pi: Optional[np.ndarray] = None) -> np.nd
     if not np.allclose(np.sum(pi), 1.0):
         raise ValueError("Stationary distribution must sum to 1")
     
-    if np.any(pi <= 0):
-        raise ValueError("Stationary distribution must have positive entries")
+    if np.any(pi < 0):
+        raise ValueError("Stationary distribution must have non-negative entries")
+    
+    # Handle zero probability states with a warning
+    if np.any(pi == 0):
+        import warnings
+        warnings.warn("Stationary distribution has zero entries - results may be unreliable")
+        # Replace zeros with small positive values for numerical stability
+        pi = np.maximum(pi, 1e-12)
+        pi = pi / np.sum(pi)  # Renormalize
     
     # Check reversibility
     if not is_reversible(P, pi):
@@ -96,14 +104,17 @@ def discriminant_matrix(P: np.ndarray, pi: Optional[np.ndarray] = None) -> np.nd
     # Construct discriminant matrix
     D = np.zeros((n, n), dtype=np.float64)
     
-    # Compute entries using the discriminant formula
+    # Compute entries using the correct discriminant formula
+    # For reversible chains: D[i,j] = sqrt(P[i,j] * P[j,i])
+    # This ensures D is symmetric and has the correct spectral properties
     for i in range(n):
         for j in range(n):
-            if P[i, j] > 0 or P[j, i] > 0:
-                # D[i,j] = sqrt(P[i,j] * P[j,i] * pi[j] / pi[i])
-                # Use detailed balance: pi[i] * P[i,j] = pi[j] * P[j,i]
-                # This gives: D[i,j] = sqrt(P[i,j] * P[j,i] * pi[j] / pi[i])
-                D[i, j] = np.sqrt(P[i, j] * P[j, i] * pi[j] / pi[i])
+            if P[i, j] > 0 and P[j, i] > 0:
+                # Correct discriminant formula for Szegedy walks
+                D[i, j] = np.sqrt(P[i, j] * P[j, i])
+            elif i == j:
+                # Diagonal entries are just P[i,i]
+                D[i, j] = P[i, j]
     
     # Ensure exact symmetry (handle numerical errors)
     D = (D + D.T) / 2

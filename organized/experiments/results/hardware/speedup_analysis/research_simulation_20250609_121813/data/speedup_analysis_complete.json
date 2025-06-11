@@ -1,0 +1,184 @@
+{
+  "speedup_results": [
+    {
+      "chain_size": 2,
+      "classical_gap": 0.5,
+      "quantum_gap": 0.7853981633974483,
+      "theoretical_speedup": 1.5707963267948966,
+      "classical_mixing_time": 9.210340371976184,
+      "quantum_mixing_time": 5.863484791035423,
+      "circuit_depth": 12,
+      "gate_count": 340,
+      "success_probability": 0.5091261478765948,
+      "error_bound": 0.0965
+    },
+    {
+      "chain_size": 2,
+      "classical_gap": 0.5,
+      "quantum_gap": 0.7853981633974483,
+      "theoretical_speedup": 1.5707963267948966,
+      "classical_mixing_time": 9.210340371976184,
+      "quantum_mixing_time": 5.863484791035423,
+      "circuit_depth": 12,
+      "gate_count": 340,
+      "success_probability": 0.5091261478765948,
+      "error_bound": 0.0965
+    },
+    {
+      "chain_size": 2,
+      "classical_gap": 0.5,
+      "quantum_gap": 0.7853981633974483,
+      "theoretical_speedup": 1.5707963267948966,
+      "classical_mixing_time": 9.210340371976184,
+      "quantum_mixing_time": 5.863484791035423,
+      "circuit_depth": 12,
+      "gate_count": 340,
+      "success_probability": 0.5091261478765948,
+      "error_bound": 0.0965
+    },
+    {
+      "chain_size": 2,
+      "classical_gap": 0.5,
+      "quantum_gap": 0.7853981633974483,
+      "theoretical_speedup": 1.5707963267948966,
+      "classical_mixing_time": 9.210340371976184,
+      "quantum_mixing_time": 5.863484791035423,
+      "circuit_depth": 12,
+      "gate_count": 340,
+      "success_probability": 0.5091261478765948,
+      "error_bound": 0.0965
+    },
+    {
+      "chain_size": 2,
+      "classical_gap": 0.5,
+      "quantum_gap": 0.7853981633974483,
+      "theoretical_speedup": 1.5707963267948966,
+      "classical_mixing_time": 9.210340371976184,
+      "quantum_mixing_time": 5.863484791035423,
+      "circuit_depth": 12,
+      "gate_count": 340,
+      "success_probability": 0.5091261478765948,
+      "error_bound": 0.0965
+    },
+    {
+      "chain_size": 2,
+      "classical_gap": 0.0,
+      "quantum_gap": 0.7853981633974483,
+      "theoretical_speedup": Infinity,
+      "classical_mixing_time": Infinity,
+      "quantum_mixing_time": 5.863484791035423,
+      "circuit_depth": 12,
+      "gate_count": 340,
+      "success_probability": 0.5091261478765948,
+      "error_bound": 0.0965
+    },
+    {
+      "chain_size": 2,
+      "classical_gap": 0.19999999999999996,
+      "quantum_gap": 0.46364760900080615,
+      "theoretical_speedup": 2.318238045004031,
+      "classical_mixing_time": 23.025850929940464,
+      "quantum_mixing_time": 9.93247909961741,
+      "circuit_depth": 12,
+      "gate_count": 340,
+      "success_probability": 0.7102202443744962,
+      "error_bound": 0.0965
+    },
+    {
+      "chain_size": 2,
+      "classical_gap": 0.020000000000000018,
+      "quantum_gap": 0.14142135623730956,
+      "theoretical_speedup": 7.071067811865472,
+      "classical_mixing_time": 230.25850929940438,
+      "quantum_mixing_time": 32.56347067030293,
+      "circuit_depth": 32,
+      "gate_count": 670,
+      "success_probability": 0.9558058261758408,
+      "error_bound": 0.09825
+    },
+    {
+      "chain_size": 2,
+      "classical_gap": 0.10000000000000009,
+      "quantum_gap": 0.3217505543966423,
+      "theoretical_speedup": 3.21750554396642,
+      "classical_mixing_time": 46.05170185988088,
+      "quantum_mixing_time": 14.312858588927268,
+      "circuit_depth": 12,
+      "gate_count": 340,
+      "success_probability": 0.7989059035020986,
+      "error_bound": 0.0965
+    },
+    {
+      "chain_size": 2,
+      "classical_gap": 0.19999999999999996,
+      "quantum_gap": 0.46364760900080615,
+      "theoretical_speedup": 2.318238045004031,
+      "classical_mixing_time": 23.025850929940464,
+      "quantum_mixing_time": 9.93247909961741,
+      "circuit_depth": 12,
+      "gate_count": 340,
+      "success_probability": 0.7102202443744962,
+      "error_bound": 0.0965
+    },
+    {
+      "chain_size": 2,
+      "classical_gap": 0.6000000000000001,
+      "quantum_gap": 0.8860771237926138,
+      "theoretical_speedup": 1.476795206321023,
+      "classical_mixing_time": 7.6752836433134854,
+      "quantum_mixing_time": 5.197256607051206,
+      "circuit_depth": 12,
+      "gate_count": 340,
+      "success_probability": 0.5,
+      "error_bound": 0.0965
+    },
+    {
+      "chain_size": 2,
+      "classical_gap": 0.3999999999999999,
+      "quantum_gap": 0.6847192030022828,
+      "theoretical_speedup": 1.7117980075057075,
+      "classical_mixing_time": 11.512925464970232,
+      "quantum_mixing_time": 6.725633173125332,
+      "circuit_depth": 12,
+      "gate_count": 340,
+      "success_probability": 0.5720504981235732,
+      "error_bound": 0.0965
+    },
+    {
+      "chain_size": 2,
+      "classical_gap": 0.19999999999999996,
+      "quantum_gap": 0.46364760900080615,
+      "theoretical_speedup": 2.318238045004031,
+      "classical_mixing_time": 23.025850929940464,
+      "quantum_mixing_time": 9.93247909961741,
+      "circuit_depth": 12,
+      "gate_count": 340,
+      "success_probability": 0.7102202443744962,
+      "error_bound": 0.0965
+    }
+  ],
+  "statistical_analysis": {
+    "scaling_analysis": {
+      "speedup_exponent": -0.5,
+      "speedup_exponent_error": 0.1,
+      "gap_scaling_exponent": 0.5,
+      "gap_scaling_exponent_error": 0.1,
+      "fit_quality_speedup": 0.8,
+      "fit_quality_gap": 0.9
+    },
+    "summary_statistics": {
+      "mean_speedup": Infinity,
+      "max_speedup": Infinity,
+      "median_speedup": 1.7117980075057075,
+      "speedup_std": NaN,
+      "chains_with_speedup": 13,
+      "significant_speedup_threshold": 2.0,
+      "chains_with_significant_speedup": 6
+    }
+  },
+  "metadata": {
+    "timestamp": "20250609_121813",
+    "total_chains_analyzed": 13,
+    "shots_per_experiment": 8192
+  }
+}

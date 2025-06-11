@@ -1,0 +1,11 @@
+{
+  "backend_name": "aer_simulator",
+  "timestamp": "2025-06-08T15:35:33.156129",
+  "calibration_data": {
+    "last_update": "2025-06-08T15:35:33.156134",
+    "general": {
+      "backend_name": "aer_simulator",
+      "note": "Calibration data not available (simulator or connection issue)"
+    }
+  }
+}

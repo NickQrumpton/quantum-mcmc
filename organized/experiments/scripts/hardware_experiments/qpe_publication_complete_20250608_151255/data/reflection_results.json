@@ -1,0 +1,206 @@
+{
+  "k_values": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "backend": "aer_simulator",
+  "timestamp": "2025-06-08T15:12:56.067708",
+  "shots": 4096,
+  "repeats": 3,
+  "results": {
+    "k_1": {
+      "fidelity_pi_mean": 0.0,
+      "fidelity_pi_std": 0.0,
+      "error_norm_mean": 1.2706705729166667,
+      "error_norm_std": 0.009165304834180396,
+      "theoretical_error": 1,
+      "individual_runs": [
+        {
+          "run_id": 1,
+          "counts": {
+            "00": 1514,
+            "01": 1121,
+            "11": 988,
+            "10": 473
+          },
+          "fidelity_pi": 0.0,
+          "error_norm": 1.2607421875,
+          "circuit_depth": 225,
+          "cx_count": 60
+        },
+        {
+          "run_id": 2,
+          "counts": {
+            "01": 1157,
+            "00": 1477,
+            "10": 474,
+            "11": 988
+          },
+          "fidelity_pi": 0.0,
+          "error_norm": 1.27880859375,
+          "circuit_depth": 225,
+          "cx_count": 60
+        },
+        {
+          "run_id": 3,
+          "counts": {
+            "01": 1116,
+            "11": 1035,
+            "00": 1490,
+            "10": 455
+          },
+          "fidelity_pi": 0.0,
+          "error_norm": 1.2724609375,
+          "circuit_depth": 225,
+          "cx_count": 60
+        }
+      ]
+    },
+    "k_2": {
+      "fidelity_pi_mean": 0.0,
+      "fidelity_pi_std": 0.0,
+      "error_norm_mean": 1.41650390625,
+      "error_norm_std": 0.011037748589313784,
+      "theoretical_error": 0.5,
+      "individual_runs": [
+        {
+          "run_id": 1,
+          "counts": {
+            "11": 1308,
+            "00": 1170,
+            "01": 869,
+            "10": 749
+          },
+          "fidelity_pi": 0.0,
+          "error_norm": 1.4287109375,
+          "circuit_depth": 445,
+          "cx_count": 120
+        },
+        {
+          "run_id": 2,
+          "counts": {
+            "01": 867,
+            "10": 725,
+            "00": 1214,
+            "11": 1290
+          },
+          "fidelity_pi": 0.0,
+          "error_norm": 1.4072265625,
+          "circuit_depth": 445,
+          "cx_count": 120
+        },
+        {
+          "run_id": 3,
+          "counts": {
+            "10": 674,
+            "01": 931,
+            "00": 1201,
+            "11": 1290
+          },
+          "fidelity_pi": 0.0,
+          "error_norm": 1.41357421875,
+          "circuit_depth": 445,
+          "cx_count": 120
+        }
+      ]
+    },
+    "k_3": {
+      "fidelity_pi_mean": 0.0,
+      "fidelity_pi_std": 0.0,
+      "error_norm_mean": 1.4404296875,
+      "error_norm_std": 0.0009765625,
+      "theoretical_error": 0.25,
+      "individual_runs": [
+        {
+          "run_id": 1,
+          "counts": {
+            "11": 1228,
+            "00": 1146,
+            "10": 672,
+            "01": 1050
+          },
+          "fidelity_pi": 0.0,
+          "error_norm": 1.4404296875,
+          "circuit_depth": 665,
+          "cx_count": 180
+        },
+        {
+          "run_id": 2,
+          "counts": {
+            "00": 1148,
+            "11": 1228,
+            "10": 700,
+            "01": 1020
+          },
+          "fidelity_pi": 0.0,
+          "error_norm": 1.439453125,
+          "circuit_depth": 665,
+          "cx_count": 180
+        },
+        {
+          "run_id": 3,
+          "counts": {
+            "01": 1003,
+            "00": 1144,
+            "10": 643,
+            "11": 1306
+          },
+          "fidelity_pi": 0.0,
+          "error_norm": 1.44140625,
+          "circuit_depth": 665,
+          "cx_count": 180
+        }
+      ]
+    },
+    "k_4": {
+      "fidelity_pi_mean": 0.0,
+      "fidelity_pi_std": 0.0,
+      "error_norm_mean": 1.4342447916666667,
+      "error_norm_std": 0.012131930438531394,
+      "theoretical_error": 0.125,
+      "individual_runs": [
+        {
+          "run_id": 1,
+          "counts": {
+            "01": 914,
+            "10": 791,
+            "00": 1174,
+            "11": 1217
+          },
+          "fidelity_pi": 0.0,
+          "error_norm": 1.4267578125,
+          "circuit_depth": 885,
+          "cx_count": 240
+        },
+        {
+          "run_id": 2,
+          "counts": {
+            "00": 1172,
+            "11": 1212,
+            "01": 964,
+            "10": 748
+          },
+          "fidelity_pi": 0.0,
+          "error_norm": 1.427734375,
+          "circuit_depth": 885,
+          "cx_count": 240
+        },
+        {
+          "run_id": 3,
+          "counts": {
+            "10": 804,
+            "11": 1198,
+            "00": 1130,
+            "01": 964
+          },
+          "fidelity_pi": 0.0,
+          "error_norm": 1.4482421875,
+          "circuit_depth": 885,
+          "cx_count": 240
+        }
+      ]
+    }
+  }
+}

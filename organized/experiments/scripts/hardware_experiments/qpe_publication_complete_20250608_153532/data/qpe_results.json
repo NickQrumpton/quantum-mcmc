@@ -1,0 +1,265 @@
+{
+  "backend": "aer_simulator",
+  "timestamp": "2025-06-08T15:35:32.512569",
+  "shots": 4096,
+  "repeats": 3,
+  "ancilla_bits": 4,
+  "phase_gap": 1.5707963267948966,
+  "states": {
+    "uniform": {
+      "counts": {
+        "0000": 12179,
+        "0001": 109
+      },
+      "counts_raw": {
+        "0000": 12179,
+        "0001": 109
+      },
+      "phases": [
+        {
+          "bin": 0,
+          "phase": 0.0,
+          "probability": 0.9911295572916666,
+          "probability_std": 0.001973365177894229,
+          "poisson_error": 0.008980998266212964,
+          "counts_combined": 12179,
+          "counts_per_run": [
+            4051,
+            4067,
+            4061
+          ]
+        },
+        {
+          "bin": 8,
+          "phase": 0.5,
+          "probability": 0.008870442708333334,
+          "probability_std": 0.001973365177894229,
+          "poisson_error": 0.0008496343187589967,
+          "counts_combined": 109,
+          "counts_per_run": [
+            45,
+            29,
+            35
+          ]
+        }
+      ],
+      "eigenvalues": [
+        {
+          "real": 1.0,
+          "imag": 0.0
+        },
+        {
+          "real": -1.0,
+          "imag": 1.2246467991473532e-16
+        }
+      ],
+      "circuit_depth": 182,
+      "cx_count": 199,
+      "total_shots": 12288,
+      "num_repeats": 3
+    },
+    "stationary": {
+      "counts": {
+        "0001": 104,
+        "0000": 12184
+      },
+      "counts_raw": {
+        "0001": 104,
+        "0000": 12184
+      },
+      "phases": [
+        {
+          "bin": 0,
+          "phase": 0.0,
+          "probability": 0.9915364583333334,
+          "probability_std": 0.000281909311127747,
+          "poisson_error": 0.008982841618845461,
+          "counts_combined": 12184,
+          "counts_per_run": [
+            4062,
+            4060,
+            4062
+          ]
+        },
+        {
+          "bin": 8,
+          "phase": 0.5,
+          "probability": 0.008463541666666666,
+          "probability_std": 0.000281909311127747,
+          "poisson_error": 0.0008299185406238256,
+          "counts_combined": 104,
+          "counts_per_run": [
+            34,
+            36,
+            34
+          ]
+        }
+      ],
+      "eigenvalues": [
+        {
+          "real": 1.0,
+          "imag": 0.0
+        },
+        {
+          "real": -1.0,
+          "imag": 1.2246467991473532e-16
+        }
+      ],
+      "circuit_depth": 182,
+      "cx_count": 199,
+      "total_shots": 12288,
+      "num_repeats": 3
+    },
+    "orthogonal": {
+      "counts": {
+        "0000": 11205,
+        "0001": 1083
+      },
+      "counts_raw": {
+        "0000": 11205,
+        "0001": 1083
+      },
+      "phases": [
+        {
+          "bin": 0,
+          "phase": 0.0,
+          "probability": 0.911865234375,
+          "probability_std": 0.0006459353786778786,
+          "poisson_error": 0.008614393927918627,
+          "counts_combined": 11205,
+          "counts_per_run": [
+            3734,
+            3733,
+            3738
+          ]
+        },
+        {
+          "bin": 8,
+          "phase": 0.5,
+          "probability": 0.088134765625,
+          "probability_std": 0.0006459353786778786,
+          "poisson_error": 0.002678138455713596,
+          "counts_combined": 1083,
+          "counts_per_run": [
+            362,
+            363,
+            358
+          ]
+        }
+      ],
+      "eigenvalues": [
+        {
+          "real": 1.0,
+          "imag": 0.0
+        },
+        {
+          "real": -1.0,
+          "imag": 1.2246467991473532e-16
+        }
+      ],
+      "circuit_depth": 184,
+      "cx_count": 201,
+      "total_shots": 12288,
+      "num_repeats": 3
+    }
+  },
+  "raw_data": {
+    "uniform": [
+      {
+        "repeat_id": 1,
+        "counts": {
+          "0000": 4051,
+          "0001": 45
+        },
+        "total_shots": 4096,
+        "circuit_depth": 182,
+        "cx_count": 199
+      },
+      {
+        "repeat_id": 2,
+        "counts": {
+          "0000": 4067,
+          "0001": 29
+        },
+        "total_shots": 4096,
+        "circuit_depth": 182,
+        "cx_count": 199
+      },
+      {
+        "repeat_id": 3,
+        "counts": {
+          "0000": 4061,
+          "0001": 35
+        },
+        "total_shots": 4096,
+        "circuit_depth": 182,
+        "cx_count": 199
+      }
+    ],
+    "stationary": [
+      {
+        "repeat_id": 1,
+        "counts": {
+          "0001": 34,
+          "0000": 4062
+        },
+        "total_shots": 4096,
+        "circuit_depth": 182,
+        "cx_count": 199
+      },
+      {
+        "repeat_id": 2,
+        "counts": {
+          "0000": 4060,
+          "0001": 36
+        },
+        "total_shots": 4096,
+        "circuit_depth": 182,
+        "cx_count": 199
+      },
+      {
+        "repeat_id": 3,
+        "counts": {
+          "0000": 4062,
+          "0001": 34
+        },
+        "total_shots": 4096,
+        "circuit_depth": 182,
+        "cx_count": 199
+      }
+    ],
+    "orthogonal": [
+      {
+        "repeat_id": 1,
+        "counts": {
+          "0000": 3734,
+          "0001": 362
+        },
+        "total_shots": 4096,
+        "circuit_depth": 184,
+        "cx_count": 201
+      },
+      {
+        "repeat_id": 2,
+        "counts": {
+          "0000": 3733,
+          "0001": 363
+        },
+        "total_shots": 4096,
+        "circuit_depth": 184,
+        "cx_count": 201
+      },
+      {
+        "repeat_id": 3,
+        "counts": {
+          "0000": 3738,
+          "0001": 358
+        },
+        "total_shots": 4096,
+        "circuit_depth": 184,
+        "cx_count": 201
+      }
+    ]
+  },
+  "metadata": {}
+}
